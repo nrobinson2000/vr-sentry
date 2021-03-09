@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Sentry</title>
+    <script src="{{ url_for('static', filename='sentry.js') }}" async defer></script>
+  </head>
+  <body>
+    <main>
+      <img src="//{{ request.host.split(':')[0] }}:8081/">
+      <br>
+      <button id="fullscreen-button">Fullscreen</button>
+      <button id="toggle-light-button">Toggle Light</button>
+      <input id="light-color-picker" type="color">
+	<button id="mobile-up">UP</button>
+	<button id="mobile-left">LEFT</button>
+	<button id="mobile-right">RIGHT</button>
+	<button id="mobile-down">DOWN</button>
+    </main>
+  </body>
+</html>
