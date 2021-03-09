@@ -1,9 +1,10 @@
 #!/bin/bash
-# bash -v <(curl -sL https://raw.githubusercontent.com/nrobinson2000/vr-sentry/master/install.sh)
+# bash -v <(curl -sL https://raw.githubusercontent.com/nrobinson2000/vr-sentry/master/app/install.sh)
 
 # Install git and pip3
 sudo apt update
 sudo apt install -y git python3-pip vim motion python3-pantilthat
+sudo apt install python3-flask python3-picamera
 
 # Clone the git repository
 git clone https://github.com/nrobinson2000/vr-sentry
@@ -11,6 +12,8 @@ cd vr-sentry/cli/
 
 # Install python dependencies
 sudo pip3 install -r requirements.txt
+
+# OLD COMMANDS:
 
 # Install udev file to allow non-root access to the USB device
 sudo cp 99-sentry.rules /etc/udev/rules.d/
@@ -25,7 +28,7 @@ sudo cp 99-sentry.rules /etc/udev/rules.d/
 # Change the following settings:
 
 # daemon on
-# videodevice /dev/video2
+# flip_axis h
 # width 640
 # height 480
 # framerate 30
