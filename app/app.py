@@ -29,13 +29,13 @@ def move():
 
 @app.route('/api/stop', methods=['POST'])
 def stop():
-    sentry.stop()
+    #sentry.stop()
 
     return ''
 
 @app.route('/api/fire', methods=['POST'])
 def fire():
-    sentry.fire()
+    #sentry.fire()
 
     return ''
 
@@ -57,7 +57,7 @@ def light_color():
         r = int(r)
         g = int(g)
         b = int(b)
-
+        print("%s, %s, %s" %(r,g,b))
         sentry.light_on(r, g, b)
 
         return ''
@@ -65,4 +65,4 @@ def light_color():
     return '', 400
 
 
-app.run('0.0.0.0', 80)
+app.run('0.0.0.0', 8080)
