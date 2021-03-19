@@ -5,7 +5,7 @@ MAX_ANGLE = 90
 MIN_ANGLE = -90
 
 STEP_SIZE = 20
-BRIGHTNESS_LEVEL = 30
+BRIGHTNESS_LEVEL = 200
 
 def constrain_angle(angle):
     return min(MAX_ANGLE, max(MIN_ANGLE, angle))

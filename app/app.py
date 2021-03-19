@@ -9,7 +9,7 @@ app = Flask(__name__)
 def hello():
     return render_template('index.html')
 
-@app.route('/api/move', methods=['POST'])
+@app.route('/api/move', methods=['GET', 'POST'])
 def move():
     direction = request.args.get('direction')
 
@@ -39,13 +39,13 @@ def fire():
 
     return ''
 
-@app.route('/api/toggle-light', methods=['POST'])
+@app.route('/api/toggle-light', methods=['GET', 'POST'])
 def toggle_light():
     sentry.toggle_light()
 
     return ''
 
-@app.route('/api/light-color', methods=['POST'])
+@app.route('/api/light-color', methods=['GET', 'POST'])
 def light_color():
     args = request.args
 
