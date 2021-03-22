@@ -4,7 +4,7 @@ from pantilthat import PanTilt
 MAX_ANGLE = 90
 MIN_ANGLE = -90
 
-STEP_SIZE = 20
+STEP_SIZE = 10
 BRIGHTNESS_LEVEL = 200
 
 def constrain_angle(angle):

@@ -73,7 +73,7 @@
     }
 
     if (xDirection !== undefined) {
-      move(['left', 'right'][xDirection])
+      move(['right', 'left'][xDirection])
     }
 
     if (yDirection !== undefined) {
