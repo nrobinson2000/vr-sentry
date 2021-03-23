@@ -1,8 +1,14 @@
-# Tutorial 1: Preparing the Raspberry Pi Sentry
+---
+title: "Tutorial 1: Preparing the Raspberry Pi Sentry"
+author: "Nathan Robinson"
+date: "March 22, 2021"
+output: pdf_document
+urlcolor: blue
+---
 
-> If you already have a Raspberry Pi running the latest Raspberry Pi OS with support enabled for the camera and I2C, please skip to Step 7.
+> If you already have a Raspberry Pi running the latest Raspberry Pi OS with support enabled for the camera and I2C, please skip to [Step 7](#step7).
 
-## Step 1: Download Raspberry Pi OS
+# Step 1: Download Raspberry Pi OS
 
 Before we begin installing the necessary tools to get the sentry server running on the Raspberry Pi, we need to install an operating system on the microSD card that we wish to boot the Pi from. For this tutorial, we will be using **Raspberry Pi OS Lite** since we won't require a Desktop Environment.
 
@@ -12,7 +18,7 @@ Open the following page in your browser and click the download button for **Rasp
 
 After the download of the .zip completes, extract the contents to a suitable location. You will end up with a disk image named something like `2021-01-11-raspios-buster-armhf-lite.img`.
 
-## Step 2: Install Raspberry Pi OS
+# Step 2: Install Raspberry Pi OS
 
 Now that we have the Raspberry Pi OS image we need to flash it to the microSD card. There are several ways of doing this, ranging from the `dd` command to numerous graphical utilities.
 
@@ -44,18 +50,18 @@ It will take a few minutes for Etcher to flash and validate the image.
 
 You can quit Etcher after it finishes flashing the image.
 
-## Step 3: Headless mode customizations
+# Step 3: Headless mode customizations
 
 When using the Raspberry Pi you can choose to connect a mouse, keyboard, and HDMI display, but for this tutorial we will use the Raspberry Pi in headless mode, logging in remotely with SSH to control the Pi.
 
-### Step 3a: Enable SSH
+## Step 3a: Enable SSH
 
 To enable SSH on the Raspberry Pi when it boots, we must create an empty text file named `ssh` on the boot partition of the microSD card.
 
 * Open the `boot` partition of the microSD card in your file manager.
 * Create an empty file named `ssh`.
 
-### Step 3b: Enable Wi-Fi (Optional)
+## Step 3b: Enable Wi-Fi (Optional)
 
 Next, we will enable Wi-Fi on the Raspberry Pi. If you will be using Ethernet you can skip this step.
 
@@ -79,7 +85,7 @@ network={
 
 * Change `YOUR_SSID` and `YOUR_PASSWORD` to the SSID and password of your Wi-Fi network.
 
-## Step 4: Boot and connect to the Raspberry Pi
+# Step 4: Boot and connect to the Raspberry Pi
 
 Now that we have installed the OS and enabled SSH and Wi-Fi, it's time to power on and connect to the Pi.
 
@@ -89,7 +95,7 @@ Now that we have installed the OS and enabled SSH and Wi-Fi, it's time to power 
 
 The Pi should begin booting. You'll see some red and green flashes from the onboard LEDs and lots of text fly if you've attached a monitor.
 
-### Step 4a: Finding the IP address
+## Step 4a: Finding the IP address
 
 It can be a challenge to find the IP address of your Raspberry Pi.
 
@@ -122,7 +128,7 @@ $ sudo arp-scan -l | grep 'Raspberry Pi'
 
 > Newer Raspberry Pi's will be identified as `Raspberry Pi Trading Ltd`, while older Pi's will be identified as `Raspberry Pi Foundation`.
 
-### Step 4b: Connecting with SSH
+## Step 4b: Connecting with SSH
 
 Now that the Raspberry Pi is connected to our network and we know the IP address and enabled the SSH server, we'll remotely log into the Pi using SSH to further configure the Pi and set up the webcam server.
 
@@ -148,7 +154,7 @@ ssh pi@raspberrypi.local
 >
 > In my case: `ssh pi@192.168.1.16`
 
-## Step 5: Configure the Raspberry Pi and enable the camera
+# Step 5: Configure the Raspberry Pi and enable the camera
 
 Now that we have the Pi up and running it's time to begin using it. We first need to configure some system settings and enable the Raspberry Pi camera.
 
@@ -162,7 +168,7 @@ You will be presented with the following menu:
 
 ![](images/raspi-config1.png)
 
-### Changing Locale
+## Changing Locale
 
 Using the arrow keys, navigate down to `Localisation Options` and press Enter:
 
@@ -186,7 +192,7 @@ Select `en_US.UTF-8` as the default locale and press Enter.
 
 After the locale is generated, you will be brought back to the initial menu.
 
-### Changing Timezone
+## Changing Timezone
 
 Select `Localisation Options` again, and choose the `Timezone` option:
 
@@ -196,7 +202,7 @@ My timezone is America/New York so that is what I selected.
 
 ![](images/raspi-config7.png)
 
-### Changing the password
+## Changing the password
 
 Under `System Options` select the `Password` option:
 
@@ -204,7 +210,7 @@ Under `System Options` select the `Password` option:
 
 You will be prompted to enter and confirm a new password.
 
-### Enabling I2C support
+## Enabling I2C support
 
 Under `Interface Options` select the `I2C` option:
 
@@ -214,7 +220,7 @@ Select `Yes` to enable I2C.
 
 ![](images/i2c-enabled-yes.png)
 
-### Enabling the camera
+## Enabling the camera
 
 Under `Interface Options` select the `Camera` option:
 
@@ -231,7 +237,7 @@ After changing the locale, timezone, password, and enabling the camera, select `
 
 ![](images/reboot-now.png)
 
-## Step 6: Install updates
+# Step 6: Install updates
 
 Now that we have configured the Raspberry Pi and enabled the camera, it's time to install the necessary packages to provide the camera server.
 
@@ -251,7 +257,7 @@ It will take a few minutes for the updates to download and apply. Reboot after t
 sudo reboot
 ```
 
-## Step 7: Installing UV4L
+# Step 7: Installing UV4L{#step7}
 
 Log back into the Pi over SSH using the new password you created.
 
@@ -263,7 +269,8 @@ curl https://www.linux-projects.org/listing/uv4l_repo/lpkey.asc | sudo apt-key a
 Add the repo to your apt sources:
 
 ```
-echo "deb https://www.linux-projects.org/listing/uv4l_repo/raspbian/stretch stretch main" | sudo tee -a /etc/apt/sources.list
+echo "deb https://www.linux-projects.org/listing/uv4l_repo/raspbian/stretch stretch main" \
+| sudo tee -a /etc/apt/sources.list
 ```
 
 Install the packages:
@@ -273,7 +280,7 @@ sudo apt update
 sudo apt install uv4l uv4l-raspicam uv4l-raspicam-extras uv4l-webrtc
 ```
 
-### Reducing resolution and framerate
+## Reducing resolution and framerate
 
 By default, UV4L streams at 1920x1080 30FPS, which is an incredibly high data rate.
 
@@ -305,7 +312,7 @@ height = 720
 framerate = 20
 ```
 
-### Changing the port
+## Changing the port
 
 Next, go down to the `streaming server options` section:
 
@@ -426,7 +433,7 @@ http://raspberrypi.local:8080
 
 ![](images/app.png)
 
-## Conclusion
+# Conclusion
 
 That's it for this tutorial. In the next tutorial, we'll create a Unity application that will provide us with an interface to view and control the camera feed from within the Oculus Quest 2.
 

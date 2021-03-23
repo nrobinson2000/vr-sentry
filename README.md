@@ -4,6 +4,6 @@
 
 Virtual Reality Sentry by Nathan Robinson
 
+- `app/` - A demo application that provides a live feed and camera controls.
 - `images/` - Pictures of the camera and screenshots of the app.
-- `stream/` - A basic livestream demo.
-- `app/` - A more complex demo that is a work in progress.
+- `tutorials/` - Documentation for setting up a Raspberry Pi and the demo application.
