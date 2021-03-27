@@ -8,6 +8,61 @@ urlcolor: blue
 
 > If you already have a Raspberry Pi running the latest Raspberry Pi OS with support enabled for the camera and I2C, please skip to [Step 7](#step7).
 
+# Step 0: Install Raspberry Pi OS using Raspberry Pi Imager
+
+The easiest and quickest way to get the Raspberry Pi up and running is to use the Raspberry Pi Imager which is available from: https://www.raspberrypi.org/software/
+
+After downloading Raspberry Pi Imager start the application. When presented with the following window press SHIFT-CTRL-X on Windows and Linux or SHIFT-CMD-X on Mac to open the customizations menu:
+
+![](images/rpi-imager.png)
+
+Check the box to `Disable overscan` and the box to `Set hostname`. For this tutorial we'll use `sentry` as the hostname.
+
+Next, check the box to `Enable SSH` and choose `Use password authentication`. Choose a password.
+
+![](images/rpi-imager1.png)
+
+
+Next, check the box to `Configure wifi` and enter your SSID and password. Change the `Wifi country` to `US`.
+
+![](images/rpi-imager2.png)
+
+Next, check the box to `Set locale settings`. The `America/New_York` timezone and `us` keyboard layout are the default and work well for me.
+
+![](images/rpi-imager3.png)
+
+Click `SAVE` to continue. Next, click the `CHOOSE OS` button. There are many operating systems to choose from, but Raspberry Pi OS Lite fits our needs best for this application since it is the most lightweight.
+
+![](images/rpi-imager4.png)
+
+Click `Raspberry Pi OS (other)`, and then select `Raspberry Pi OS Lite (32-bit)`.
+
+![](images/rpi-imager5.png)
+
+Now that you have configured the settings and selected an operating system, insert your microSD card and click the `CHOOSE STORAGE` button.
+
+![](images/rpi-imager6.png)
+
+Select your microSD card from the menu.
+
+![](images/rpi-imager7.png)
+
+Now click the `WRITE` button to install Raspberry Pi OS Lite to your microSD card. 
+
+![](images/rpi-imager8.png)
+
+You will be reminded that the microSD card will be erased in the process. Click `YES` to acknowledge.
+
+![](images/rpi-imager9.png)
+
+![](images/rpi-imager10.png)
+
+It will take a several minutes for the image to be written to your microSD card. Once it completes quit Raspberry Pi Imager and remove the microSD card.
+
+![](images/rpi-imager11.png)
+
+>Steps 1-3 describe the process of manually installing Raspberry Pi OS Lite and configuring SSH and Wi-Fi in case the Raspberry Pi Imager does not work for you. If you used the Raspberry Pi Imager, you can skip to [Step 4.](#step4)
+
 # Step 1: Download Raspberry Pi OS
 
 Before we begin installing the necessary tools to get the sentry server running on the Raspberry Pi, we need to install an operating system on the microSD card that we wish to boot the Pi from. For this tutorial, we will be using **Raspberry Pi OS Lite** since we won't require a Desktop Environment.
@@ -85,7 +140,7 @@ network={
 
 * Change `YOUR_SSID` and `YOUR_PASSWORD` to the SSID and password of your Wi-Fi network.
 
-# Step 4: Boot and connect to the Raspberry Pi
+# Step 4: Boot and connect to the Raspberry Pi{#step4}
 
 Now that we have installed the OS and enabled SSH and Wi-Fi, it's time to power on and connect to the Pi.
 
@@ -109,7 +164,7 @@ Luckily there are a few ways to do this:
 >
 > `My IP address is 192.168.1.16`
 
-* The second way is to take advantage of the `raspberrypi.local` mDNS hostname the Pi provides. In most circumstances, if there is only one Raspberry Pi on your network, `raspberrypi.local` should resolve to your Pi in SSH, HTTP, and other protocols.
+* The second way is to take advantage of the `raspberrypi.local` mDNS hostname the Pi provides. In most circumstances, if there is only one Raspberry Pi on your network, `raspberrypi.local` should resolve to your Pi in SSH, HTTP, and other protocols. If you set a different hostname using Raspberry Pi Imager use it instead of `raspberrypi.local` for the rest of this tutorial.
 
 > A more advanced way to find the IP address would be to use [arp-scan](https://github.com/royhills/arp-scan), a powerful command-line tool for Linux and macOS that allows you to discover devices on your network and identify the manufacturer based on the MAC address. The following command uses arp-scan to discover devices on your local network and filter the results with grep.
 
@@ -168,6 +223,8 @@ You will be presented with the following menu:
 
 ![](images/raspi-config1.png)
 
+>If you used Raspberry Pi Imager to set locale, timezone, and password, skip to [Enabling I2C support.](#i2c)
+
 ## Changing Locale
 
 Using the arrow keys, navigate down to `Localisation Options` and press Enter:
@@ -210,7 +267,7 @@ Under `System Options` select the `Password` option:
 
 You will be prompted to enter and confirm a new password.
 
-## Enabling I2C support
+## Enabling I2C support{#i2c}
 
 Under `Interface Options` select the `I2C` option:
 
